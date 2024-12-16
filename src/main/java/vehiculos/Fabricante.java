@@ -3,66 +3,56 @@ package vehiculos;
 import java.util.ArrayList;
 
 public class Fabricante {
-    private String nombre;
-    private Pais pais;
-
+    
+    public static ArrayList<Fabricante> listadoFabricantes = new ArrayList<>();
+    public int contador;
+    public String nombre;
+    public Pais pais;
+    
     public Fabricante(String nombre, Pais pais) {
         this.nombre = nombre;
         this.pais = pais;
+        listadoFabricantes.add(this);
+    }
+    
+    public static Fabricante fabricaMayorVentas() {
+        int maximo = 0;
+        Fabricante fabricante = null;
+        for(Fabricante f : listadoFabricantes){
+            if(f.getContador() >= maximo){
+                maximo = f.getContador();
+                fabricante = f;
+            }
+        }
+        return fabricante;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public String getNombre() {
-        return this.nombre;
+    public Pais getPais() {
+        return pais;
     }
 
     public void setPais(Pais pais) {
         this.pais = pais;
-
     }
 
-    public Pais getPais() {
-        return this.pais;
-
+    public static ArrayList<Fabricante> getListadoFabricantes() {
+        return listadoFabricantes;
     }
 
-    public static Fabricante fabricaMayorVentas() {
-        ArrayList<String> fabricas = new ArrayList<>();
-        String ganador = masRepetido(fabricas);
-        for (int i = 0; i < Automovil.vehiculos.size(); i++) {
-            Vehiculo cuenta = Automovil.vehiculos.get(i);
-            String str = cuenta.fabricante.getNombre();
-            fabricas.add(str);
-
-        }
-        for (int i = 0; i < Automovil.vehiculos.size(); i++) {
-            Vehiculo cuenta2 = Automovil.vehiculos.get(i);
-            if (cuenta2.fabricante.getNombre() == ganador) {
-                Fabricante winer = cuenta2.fabricante;
-                return winer;
-            } 
-        }
-        return null;
+    public int getContador() {
+        return contador;
     }
 
-    public static String masRepetido(ArrayList<String> fabricas) {
-        String masRepetido = null;
-        int maxRepeticiones = 0;
-        for (String elemento : fabricas) {
-            int repeticiones = 0;
-            for (String comparar : fabricas) {
-                if (elemento.equals(comparar)) {
-                    repeticiones++;
-                }
-                if (repeticiones > maxRepeticiones) {
-                    maxRepeticiones = repeticiones;
-                    masRepetido = elemento;
-                }
-            }
-        }
-        return masRepetido;
+    public void setContador(int contador) {
+        this.contador = contador;
     }
+    
 }
